@@ -23,7 +23,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "https://login-dot-capstonejin.et.r.appspot.com/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       return done(null, profile);
@@ -47,11 +47,12 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    res.redirect("/profile");
+    // Redirect to the target URL after successful login
+    res.redirect("https://fronted-dot-capstonejin.et.r.appspot.com");
   }
 );
 
-app.get("/profile", (req, res) => {
+app.get("/", (req, res) => {
   res.send(`Welcome ${req.user.displayName}`);
 });
 
